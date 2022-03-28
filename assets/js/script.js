@@ -1,5 +1,5 @@
 // Assignment code here
-var generatePassword = function() {
+var generatePassword = function () {
   var nbrChar = null;
   while (nbrChar < 8 || nbrChar > 128 || isNaN(nbrChar)) { //checks if nbrChar is a number from 8 to 128
     nbrChar = parseInt(prompt("Number of characters for the generated password (min 8, max 128)", "8"));
@@ -9,7 +9,7 @@ var generatePassword = function() {
   var numeric = false;
   var special = false;
 
-  while (!lowerCase && !upperCase && !numeric && !special){
+  while (!lowerCase && !upperCase && !numeric && !special) { //Storing which character sets the user wishes to use.
     lowerCase = window.confirm('Select "OK" to include lower-case letters.');
     upperCase = window.confirm('Select "OK" to include upper-case letters.');
     numeric = window.confirm('Select "OK" to include numbers.');
@@ -21,10 +21,10 @@ var generatePassword = function() {
   var lowerCaseSet = "abcdefghijklmnopqrstuvwxyz";
   var upperCaseSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   var numericSet = "1234567890";
-  var specialSet = " !#$%&'()*+,-./:;<=>?@[\]^_`{|}~"+'"';
+  var specialSet = " !#$%&'()*+,-./:;<=>?@[\]^_`{|}~" + '"';
   var combinedSet = "";
 
-  switch (lowerCase) {
+  switch (lowerCase) {//combines the selected character sets into one string
     case true:
       combinedSet += lowerCaseSet;
       break;
@@ -56,12 +56,14 @@ var generatePassword = function() {
       break;
   }
 
+  //loops for number of characters user entered,
+  //uses Math.random() to select random character from combinedSet.
   for (var i = 0; i < nbrChar; i++) {
     var fullPassword;
     var charSelect = Math.floor(Math.random() * combinedSet.length) + 1;
     var charItem = combinedSet.charAt(charSelect - 1);
 
-    if (!fullPassword){
+    if (!fullPassword) {//Added to avoid "undefined" being printed in addition to generated password.
       fullPassword = charItem;
     } else {
       fullPassword += charItem;
