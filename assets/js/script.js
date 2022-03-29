@@ -24,56 +24,38 @@ var generatePassword = function () {
   var specialSet = " !#$%&'()*+,-./:;<=>?@[\]^_`{|}~" + '"';
   var combinedSet = "";
 
-  switch (lowerCase) {//combines the selected character sets into one string
-    case true:
+  if (lowerCase) {//combines the selected character sets into one string
       combinedSet += lowerCaseSet;
-      break;
-    default:
-      break;
   }
 
-  switch (upperCase) {
-    case true:
+  if (upperCase) {
       combinedSet += upperCaseSet;
-      break;
-    default:
-      break;
   }
 
-  switch (numeric) {
-    case true:
+  if (numeric) {
       combinedSet += numericSet;
-      break;
-    default:
-      break;
   }
 
-  switch (special) {
-    case true:
+  if (special) {
       combinedSet += specialSet;
-      break;
-    default:
-      break;
   }
 
   //loops for number of characters user entered,
   //uses Math.random() to select random character from combinedSet.
+  var fullPassword = "";
+
   for (var i = 0; i < nbrChar; i++) {
-    var fullPassword;
     var charSelect = Math.floor(Math.random() * combinedSet.length) + 1;
     var charItem = combinedSet.charAt(charSelect - 1);
 
-    if (!fullPassword) {//Added to avoid "undefined" being printed in addition to generated password.
-      fullPassword = charItem;
-    } else {
-      fullPassword += charItem;
-    }
+    fullPassword += charItem;
   }
   return fullPassword;
 }
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
+var copyBtn = document.querySelector("#copy");
 
 // Write password to the #password input
 function writePassword() {
@@ -81,8 +63,13 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
+}
 
+function copyPassword() {
+  var getPassword = document.querySelector("#password");
+  navigator.clipboard.writeText(getPassword.value);
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+copyBtn.addEventListener("click", copyPassword);
