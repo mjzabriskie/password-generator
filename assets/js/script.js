@@ -67,6 +67,8 @@ function writePassword() {
 
 function copyPassword() {
   var getPassword = document.querySelector("#password");
+  getPassword.select();
+  getPassword.setSelectionRange(0, 99999);
   navigator.clipboard.writeText(getPassword.value);
 }
 
